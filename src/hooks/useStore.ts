@@ -1,5 +1,9 @@
 import { create } from "zustand";
-import { Todo } from "../types/Todo";
+
+type Todo = {
+  text: string;
+  completed: boolean;
+};
 
 export interface TodoState {
   todos: Todo[];

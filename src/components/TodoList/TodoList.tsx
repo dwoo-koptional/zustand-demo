@@ -4,66 +4,65 @@ import { MagicExit, MagicMotion } from "react-magic-motion";
 import { CheckIcon, PlusIcon, TrashIcon } from "@heroicons/react/16/solid";
 
 export default function TodoList() {
-  const { todos, addTodo, deleteTodo, updateTodo } = useTodoStore();
+  const todos = useTodoStore((state) => state.todos);
+  const { addTodo, deleteTodo, updateTodo } = useTodoStore();
+
   const [todoText, setTodoText] = useState("");
 
+  const onSubmit = () => {
+    addTodo({ text: todoText, completed: false });
+    setTodoText("");
+  };
+
   return (
-    <div className="text-white">
-      <div className="space-y-2">
-        <div className="font-semibold text-xl">Another To-do List</div>
-        <MagicMotion>
-          <div className="flex flex-col space-y-2">
-            <MagicExit exit={{ opacity: 0 }}>
-              {todos.map((todo, idx) => {
-                return (
-                  <div className="flex items-center justify-between bg-gray-800 rounded-md px-3 py-2.5 outline-none text-sm">
-                    <div
-                      className={`font-semibold ${
-                        todo.completed ? "line-through" : ""
-                      }`}
-                    >
-                      {todo.text}
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <button
-                        type="button"
-                        onClick={() => updateTodo(idx)}
-                        className="rounded-md bg-green-600 p-1.5 text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
-                      >
-                        <CheckIcon className="h-4 w-4" aria-hidden="true" />
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => deleteTodo(idx)}
-                        className="rounded-md bg-red-600 p-1.5 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                      >
-                        <TrashIcon className="h-4 w-4" aria-hidden="true" />
-                      </button>
-                    </div>
-                  </div>
-                );
-              })}
-            </MagicExit>
-          </div>
-        </MagicMotion>
-        <div className="flex items-center space-x-3">
+    <MagicMotion>
+      <div className="text-white max-w-md w-full">
+        <div className="pb-3">
+          <h1 className="text-2xl font-semibold">Another To-do List</h1>
+        </div>
+        <div className="space-y-3">
+          <MagicExit exit={{ opacity: 0 }}>
+            {todos.map((todo, idx) => (
+              <div
+                className="bg-gray-600 rounded-md px-3 py-2 flex justify-between"
+                key={idx}
+              >
+                <div className={`${todo.completed ? "line-through" : ""}`}>
+                  {todo.text}
+                </div>
+                <div className="flex items-center space-x-2">
+                  <button
+                    className="bg-green-500 p-1.5 rounded-md hover:bg-green-600"
+                    onClick={() => updateTodo(idx)}
+                  >
+                    <CheckIcon className="h-4 w-4 text-white" />
+                  </button>
+                  <button
+                    className="bg-red-500 p-1.5 rounded-md hover:bg-red-600"
+                    onClick={() => deleteTodo(idx)}
+                  >
+                    <TrashIcon className="h-4 w-4 text-white" />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </MagicExit>
+        </div>
+        <div className="flex space-x-2 text-sm pt-3">
           <input
-            className="bg-gray-800 rounded-md px-3 py-2.5 outline-none text-sm font-semibold w-full"
+            className="bg-gray-600 rounded-md w-full px-3 py-2"
             onChange={(e) => setTodoText(e.target.value)}
             value={todoText}
           />
           <button
-            type="button"
-            onClick={() => {
-              addTodo({ text: todoText, completed: false });
-              setTodoText("");
-            }}
-            className="rounded-md bg-blue-600 p-1.5 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            className="px-3 py-2 rounded-md bg-blue-500 font-semibold hover:bg-blue-700 flex items-center space-x-2"
+            onClick={onSubmit}
           >
-            <PlusIcon className="h-7 w-7" aria-hidden="true" />
+            Submit
+            <PlusIcon className="h-4 w-4 ml-2" />
           </button>
         </div>
       </div>
-    </div>
+    </MagicMotion>
   );
 }

@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.1.3",
+    "divz": "^1.1.11",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-joyride": "^2.8.2",
     "react-magic-motion": "^1.1.2",
     "zustand": "^4.5.2"
   },

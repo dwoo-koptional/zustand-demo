@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import { useTodoStore } from "../../hooks/useTodoStore";
 import { MagicExit, MagicMotion } from "react-magic-motion";
 import { CheckIcon, PlusIcon, TrashIcon } from "@heroicons/react/16/solid";
+import { useTodoPersistStore } from "../../hooks/useTodoPersistStore";
 
 export default function TodoList() {
-  const todos = useTodoStore((state) => state.todos);
-  const addTodo = useTodoStore((state) => state.addTodo);
-  const deleteTodo = useTodoStore((state) => state.deleteTodo);
-  const updateTodo = useTodoStore((state) => state.updateTodo);
+  // const todos = useTodoStore((state) => state.todos);
+  // const addTodo = useTodoStore((state) => state.addTodo);
+  // const deleteTodo = useTodoStore((state) => state.deleteTodo);
+  // const updateTodo = useTodoStore((state) => state.updateTodo);
+
+  const todos = useTodoPersistStore((state) => state.todos);
+  const addTodo = useTodoPersistStore((state) => state.addTodo);
 
   // const { todos, addTodo, deleteTodo, updateTodo } = useTodoStore(
   //   ({ todos, addTodo, deleteTodo, updateTodo }) => ({
@@ -42,7 +46,7 @@ export default function TodoList() {
                   {todo.text}
                 </div>
                 <div className="flex items-center space-x-2">
-                  <button
+                  {/* <button
                     className="bg-green-500 p-1.5 rounded-md hover:bg-green-600"
                     onClick={() => updateTodo(idx)}
                   >
@@ -53,7 +57,7 @@ export default function TodoList() {
                     onClick={() => deleteTodo(idx)}
                   >
                     <TrashIcon className="h-4 w-4 text-white" />
-                  </button>
+                  </button> */}
                 </div>
               </div>
             ))}

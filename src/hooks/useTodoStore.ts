@@ -12,7 +12,7 @@ export interface TodoState {
   updateTodo: (idx: number) => void;
 }
 
-export const useTodoStore = create<TodoState>((set) => {
+export const useTodoStore = create<TodoState>()((set) => {
   return {
     todos: [],
     addTodo: (todo) =>

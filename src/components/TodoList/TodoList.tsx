@@ -1,11 +1,22 @@
 import React, { useState } from "react";
-import { useTodoStore } from "../../hooks/useStore";
+import { useTodoStore } from "../../hooks/useTodoStore";
 import { MagicExit, MagicMotion } from "react-magic-motion";
 import { CheckIcon, PlusIcon, TrashIcon } from "@heroicons/react/16/solid";
 
 export default function TodoList() {
   const todos = useTodoStore((state) => state.todos);
-  const { addTodo, deleteTodo, updateTodo } = useTodoStore();
+  const addTodo = useTodoStore((state) => state.addTodo);
+  const deleteTodo = useTodoStore((state) => state.deleteTodo);
+  const updateTodo = useTodoStore((state) => state.updateTodo);
+
+  // const { todos, addTodo, deleteTodo, updateTodo } = useTodoStore(
+  //   ({ todos, addTodo, deleteTodo, updateTodo }) => ({
+  //     todos,
+  //     addTodo,
+  //     deleteTodo,
+  //     updateTodo,
+  //   })
+  // );
 
   const [todoText, setTodoText] = useState("");
 
